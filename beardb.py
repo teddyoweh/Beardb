@@ -45,77 +45,7 @@ class Beardb:
     
     # Load a database bucket
     
-    def create_bucket(self,bucket_name=''):
-        if(self.database_active):
-            if(bucket_name==''):
-                raise Exception('Bucket name is required')
-     
-              
-            else: 
-              path=self.path_(self.database+'/'+bucket_name)+'.json'
-            
-              with open(f'{path}', 'w') as outfile:
-                    json.dump([], outfile)
-           
-        else:raise Exception('No database loaded')
-    
-   
-    def fetchbyID(self,bucket_name='',id=''):   
-        if(self.database_active):
-            if(bucket_name==''):
-                raise Exception('Bucket name is required')
-            else:
-                path=self.database+'/'+bucket_name+'.json'
-                with open(path) as json_file:
-                    data_list = json.load(json_file)
-                    for data in data_list:
-                        if(data['id']==id):
-                            return data
-                    return None
-    def fetchData(self,bucket_name='',query={}):
-        if(self.database_active):
-            if(bucket_name==''):
-                raise Exception('Bucket name is required')
-            else:
-                path=self.database+'/'+bucket_name+'.json'
-                box  =[]
-                with open(path) as json_file:
-                    data_list = json.load(json_file)
-                for data in data_list:
-                    _ = 0
-                    for key,value in query.items():
-                       
-                            if data[key]==value:
-                                _+=1
-                    if _ == len(query.items()):
-                        box.append(data)
-                                
-                return box
-        
-        
-        else:raise Exception('No database loaded')
-    
-    
-    def updateData(self,bucket_name='',id='',data={}):
-        if(self.database_active):
-            if(bucket_name==''):
-                raise Exception('Bucket name is required')
-            else:
-                path=self.database+'/'+bucket_name+'.json'
-                with open(path) as json_file:
-                    data_list = json.load(json_file)
-                    for data in data_list:
-                        if(data['id']==id):
-                            for key,value in data.items():
-                                if key in data:
-                                 
-                                    data[key]=value
-                            break
-                    with open(path, 'w') as outfile:
-                        json.dump(data_list, outfile)
-        
-        else:raise Exception('No database loaded')
-
+ 
 class Bucket:
     def __init__(self,project:object,bucket_name=''):
         

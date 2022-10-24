@@ -2,6 +2,7 @@
 import uuid
 import os
 import json
+from xmlrpc.client import boolean
 class Beardb:
     
 

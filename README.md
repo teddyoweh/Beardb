@@ -153,7 +153,15 @@ userinfo = users.fetchData(query=query)
 
 ```
 
+### Test Code
+```py
+beardb_ = Beardb('projects')
+beardb_.load_database('computers')
+computers=Bucket(beardb_,'computers')
+computers.insert({'model':'lenovo','ram':'8gb','hdd':'1tb','processor':'i5'})
 
+
+```
 
 License
 ----

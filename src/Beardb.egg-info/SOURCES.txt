@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+src/Beardb.egg-info/PKG-INFO
+src/Beardb.egg-info/SOURCES.txt
+src/Beardb.egg-info/dependency_links.txt
+src/Beardb.egg-info/entry_points.txt
+src/Beardb.egg-info/top_level.txt

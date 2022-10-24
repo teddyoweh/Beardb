@@ -1,8 +1,8 @@
-
-# data = Beardb('server')
-# data.load_database('class')
-# newjson = Bucket(project=data,bucket_name='people')
-# newjson.insert(data={'name':'lucas','age':18,'class':'calc'})
+from beardb import Bucket, Beardb
+data = Beardb('EncodeGUI')
+data.load_database('windowsapp')
+newjson = Bucket(project=data,bucket_name='people')
+newjson.insert(data={'name':'lucas','amountpaid':500,'email':'tedz@gmail.com'})
 
 
 

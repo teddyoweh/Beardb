@@ -114,3 +114,42 @@ New Output in database:
 
 """
 ```
+
+#### Delete Data From Bucket From Query
+
+```py
+query= {
+       'name':'Teddy Oweh',
+       'Random Data':'Golf'
+}
+ 
+
+users.delete(query=query})
+ 
+```
+#### Delete Data From Bucket From ID
+
+```py
+
+users.deletebyId(id="ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6")
+ 
+```
+
+#### Fetch Data From ID
+```py
+
+userinfo = users.fetchbyID(id="ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6")
+
+```
+
+
+#### Fetch Data From Query
+```py
+query= {
+       'name':'Teddy Oweh',
+       'Random Data':'Golf'
+}
+userinfo = users.fetchData(query=query)
+
+```
+

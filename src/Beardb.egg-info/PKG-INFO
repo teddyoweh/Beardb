@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: Beardb
-Version: 0.0.1
-Summary: A Local System Based JSON Database system 
+Version: 0.0.3
+Summary: A Local System Based JSON Database system
 Home-page: https://github.com/teddyoweh/Beardb
 Author: Teddy Oweh
 Author-email: Teddy Oweh <teddy@teddyoweh.net>

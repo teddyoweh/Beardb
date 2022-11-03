@@ -8,7 +8,8 @@ $ pip install Beardb
 
 #### Import Libraries
 ```py
-from Beardb import Beardb, Bucket
+from Beardb.Beardb import Beardb
+from Beardb.Bucket import Bucket
 ```
 #### Initialize Project
 ```py

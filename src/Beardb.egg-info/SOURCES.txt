@@ -2,6 +2,10 @@ README.md
 pyproject.toml
 setup.cfg
 setup.py
+src/Beardb/Beardb.py
+src/Beardb/Bucket.py
+src/Beardb/__init__.py
+src/Beardb/test.py
 src/Beardb.egg-info/PKG-INFO
 src/Beardb.egg-info/SOURCES.txt
 src/Beardb.egg-info/dependency_links.txt

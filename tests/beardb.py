@@ -363,5 +363,5 @@ class Bucket:
         
         
         else:raise Exception('No database loaded')
-        
+
         

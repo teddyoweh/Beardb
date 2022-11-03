@@ -1,5 +1,6 @@
-from beardb import Bucket, Beardb
-data = Beardb('EncodeGUI')
+from Beardb.Beardb import Beardb
+from Beardb.Bucket import Bucket
+data = Beardb('testdb')
 data.load_database('windowsapp')
 newjson = Bucket(project=data,bucket_name='people')
 newjson.insert(data={'name':'lucas','amountpaid':500,'email':'tedz@gmail.com'})

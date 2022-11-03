@@ -1,10 +1,10 @@
 [project]
 name = "Beardb"
-version = "0.0.1"
+version = "0.0.3"
 authors = [
   { name="Teddy Oweh", email="teddy@teddyoweh.net" },
 ]
-description = "A Local System Based JSON Database system "
+description = "A Local System Based JSON Database system"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [

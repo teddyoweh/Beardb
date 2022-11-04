@@ -1,6 +1,10 @@
 import uuid
 import os
 import json
+from dotenv import load_dotenv
+from cryptography.fernet import Fernet
+
+load_dotenv(override=False)
 class Bucket:
     """
         Buckets are the individual database files..
@@ -16,6 +20,12 @@ class Bucket:
         Raises:
             Exception: _description_
         """
+        self.SECRET_KEY = os.environ.get("SECRET_KEY")
+        self.key = Fernet.generate_key()
+ 
+        # Instance the Fernet class with the key
+         
+        self.fernet = Fernet(self.key)
         self.project = project
         self.project_name=self.project.project
         self.database = self.project.database
@@ -29,11 +39,11 @@ class Bucket:
             self.bucket_name = bucket_name.strip('')
         if(os.path.exists(self.path_(self.database+'/'+self.bucket_name+'.json'))):
  
-            with open(self.path_(self.database+'/'+self.bucket_name+'.json')) as _:
-                self.bucket = json.load(_)
+            _ = open(self.path_(self.database+'/'+self.bucket_name+'.json'),'r') 
+            self.bucket = json.load(self.fernet.decrypt(_).decode())
         else:
             with open(self.path_(self.database+'/'+self.bucket_name+'.json'),'w') as __:
-                json.dump([],__)
+                json.dump(self.fernet.encrypt(str([]).encode()),__)
     def insert(self,data:dict={}):
         """
         
@@ -45,19 +55,22 @@ class Bucket:
         Raises:
             Exception: _description_
         """
-        
+ 
         if(self.database_active):
             if(self.bucket_name==''):
                 raise Exception('Bucket name is required')
             else:
              
-                with open(self.path_(self.database+'/'+self.bucket_name+'.json')) as json_file:
-                
-                    data_list = json.load(json_file)
-                    data['_ßid']=str(uuid.uuid1())
+                    json_file = open(self.path_(self.database+'/'+self.bucket_name+'.json'),'r').read()
+                    print(json_file)
+                    data_list = self.fernet.decrypt(json_file).decode()
+                    print(data_list)
+                    data_list = json.loads(data_list)
+                    data['_id']=str(uuid.uuid1())
                     data_list.append(data)
                     with open(self.path_(self.database+'/'+self.bucket_name+'.json'),'w') as outfile:
-                        json.dump(data_list, outfile)
+                        outfile1 = self.fernet.encrypt(outfile.encode())
+                        json.dump(data_list, outfile1)
                 
     def path_(self,path):
         return os.path.join(self.project_name,path)

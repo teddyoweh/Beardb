@@ -1,4 +1,5 @@
-from Beardb import Bucket, Beardb
+from Beardb import Beardb
+from Bucket import Bucket
 data = Beardb('testdb')
 data.load_database('windowsapp')
 newjson = Bucket(project=data,bucket_name='people')

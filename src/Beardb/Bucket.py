@@ -21,7 +21,7 @@ class Bucket:
             Exception: _description_
         """
         self.SECRET_KEY = os.environ.get("SECRET_KEY")
-        self.key = Fernet.generate_key()
+        self.key = open('key.key','rb').read()#Fernet.generate_key()
  
         # Instance the Fernet class with the key
          
@@ -37,13 +37,13 @@ class Bucket:
                 raise Exception('Bucket name is required')
         else:
             self.bucket_name = bucket_name.strip('')
-        if(os.path.exists(self.path_(self.database+'/'+self.bucket_name+'.json'))):
+        if(os.path.exists(self.path_(self.database+'/'+self.bucket_name+'.bdb'))):
  
-            _ = open(self.path_(self.database+'/'+self.bucket_name+'.json'),'r') 
-            self.bucket = json.load(self.fernet.decrypt(_).decode())
+            _ = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read() 
+            self.bucket = json.loads(self.fernet.decrypt(_).decode())
         else:
-            with open(self.path_(self.database+'/'+self.bucket_name+'.json'),'w') as __:
-                json.dump(self.fernet.encrypt(str([]).encode()),__)
+            out__ = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
+            out__.write(self.fernet.encrypt(str('[]').encode()))
     def insert(self,data:dict={}):
         """
         
@@ -61,16 +61,16 @@ class Bucket:
                 raise Exception('Bucket name is required')
             else:
              
-                    json_file = open(self.path_(self.database+'/'+self.bucket_name+'.json'),'r').read()
+                    json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read()
                     print(json_file)
                     data_list = self.fernet.decrypt(json_file).decode()
                     print(data_list)
                     data_list = json.loads(data_list)
                     data['_id']=str(uuid.uuid1())
                     data_list.append(data)
-                    with open(self.path_(self.database+'/'+self.bucket_name+'.json'),'w') as outfile:
-                        outfile1 = self.fernet.encrypt(outfile.encode())
-                        json.dump(data_list, outfile1)
+                    outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
+                    outfile1 = self.fernet.encrypt(str(data_list).encode())
+                    outlof.write(outfile1)
                 
     def path_(self,path):
         return os.path.join(self.project_name,path)
@@ -304,10 +304,10 @@ class Bucket:
             if(self.bucket_name==''):
                 raise Exception('Bucket name is required')
             else:
-                path=self.database+'/'+self.bucket_name+'.json'
+                path=self.database+'/'+self.bucket_name+'.bdb'
                 box  =[]
-                with open(self.path_(self.database+'/'+self.bucket_name+'.json')) as json_file:
-                    data_list = json.load(json_file)
+                json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb','rb')).read()
+                data_list = json.loads(self.fernet.decrypt(json_file).decode())
                 for data in data_list:
                     _ = 0
                     for key,value in query.items():

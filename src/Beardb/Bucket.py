@@ -40,7 +40,7 @@ class Bucket:
         if(os.path.exists(self.path_(self.database+'/'+self.bucket_name+'.bdb'))):
  
             _ = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read() 
-            self.bucket = json.loads(self.fernet.decrypt(_).decode())
+            self.bucket = json.loads(str(self.fernet.decrypt(_).decode()))
         else:
             out__ = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
             out__.write(self.fernet.encrypt(str('[]').encode()))
@@ -64,12 +64,15 @@ class Bucket:
                     json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read()
                     print(json_file)
                     data_list = self.fernet.decrypt(json_file).decode()
+                
+                    data_list1 = eval(json.dumps(data_list))
+                    data["_id"]=str(uuid.uuid1())
                     print(data_list)
-                    data_list = json.loads(data_list)
-                    data['_id']=str(uuid.uuid1())
-                    data_list.append(data)
+                    data_list1.append(data)
+                    
+                    print(data_list1)
                     outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
-                    outfile1 = self.fernet.encrypt(str(data_list).encode())
+                    outfile1 = self.fernet.encrypt(str(data_list1).encode())
                     outlof.write(outfile1)
                 
     def path_(self,path):

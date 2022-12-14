@@ -12,7 +12,7 @@ Database system implementing encrypted versions JSON of data. Easy to access, ma
 
 ### Install Libraries
 ```sh
-$ pip install Beardb
+$ python3 -m pip install Beardb
 ```
 
 #### Import Libraries

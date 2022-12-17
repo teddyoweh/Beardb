@@ -22,7 +22,7 @@ setup(
     author="Teddy Oweh",
     author_email="teddy@teddyoweh.net",
     packages=find_packages('src'),
-    package_dir={'': 'src'},
+    package_dir={'': 'src/Beardb'},
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",

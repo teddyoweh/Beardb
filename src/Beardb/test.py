@@ -1,5 +1,7 @@
 from Beardb import Beardb
 from Bucket import Bucket
+from Client import Client
+
 data = Beardb('testdb')
 data.load_database('windowsapp')
 newjson = Bucket(project=data,bucket_name='people',key='people')
@@ -14,7 +16,8 @@ newjson = Bucket(project=data,bucket_name='people',key='people')
 #     }
 # # )
 # newjson.insert(data={"name":"oweh","amountpaid":400,"email":"tedz@gmail.com"})
-newjson.updatebyId(id='48b27e8c-7db5-11ed-9e76-324d38bf6d76',data={"name":"oweh","amountpaid":1555500})
+newjson.update(query={'email': 'tedz@gmail.com'},data={'name':'amaka done blow'})
+# newjson.updatebyId(id='48b27e8c-7db5-11ed-9e76-324d38bf6d76',data={"name":"james","amountpaid":1555500})
 print(newjson.fetchData())
 # import json
 # name = '{"name":"lucas","amountpaid":500,"email}'

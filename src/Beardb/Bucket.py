@@ -179,25 +179,32 @@ class Bucket:
             if(self.bucket_name==''):
                 raise Exception('Bucket name is required')
             else:
-                path=self.path_(self.database+'/'+self.bucket_name+'.json')
-                with open(path) as json_file:
-                    data_list = json.load(json_file)
-                    for data in data_list:
+                    path=self.path_(self.database+'/'+self.bucket_name+'.bdb')
+                    json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read()
+                    data_list = ast.literal_eval((self.fernet.decrypt(json_file).decode()))
+                 
+                
+                    for data1 in data_list:
                         _ = 0
                         for key,value in query.items():
-                            if data[key]==value:
+                            if data1[key]==value:
                                 _+=1
+                        
                         if _ == len(query.items()):
-                            for key,value in data.items():
-                                if key in data:
-                                    data[key]=value
-                    with open(path, 'w') as outfile:
-                        json.dump(data_list, outfile)
+                            for key1,value1 in data.items():
+                            
+                                     
+                                data1[key1]=value1
+                              
+                                     
+                    outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
+                    outfile1 = self.fernet.encrypt(str(data_list).encode())
+                    outlof.write(outfile1)
         
         else:raise Exception('No database loaded')
     
    
-    def updatebyId(self,id:str='',data:dict={}):
+    def updatebyId(self,id:str,data:dict={}):
         """
         
             Update data in a bucket based on an id
@@ -217,13 +224,12 @@ class Bucket:
                     path=self.path_(self.database+'/'+self.bucket_name+'.bdb')
                     json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read()
                     data_list = ast.literal_eval((self.fernet.decrypt(json_file).decode()))
-     
-                    for data in data_list:
-                        if(data['id']==id):
+                    
+                    for data1 in data_list:
+                        if(data1['id']==id):
                             for key,value in data.items():
-                                if key in data:
-                                 
-                                    data[key]=value
+                                
+                                data1[key]=value
                             break
                     outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
                     outfile1 = self.fernet.encrypt(str(data_list).encode())
@@ -246,6 +252,7 @@ class Bucket:
             else:
                     json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read()
                     data_list = ast.literal_eval((self.fernet.decrypt(json_file).decode()))
+                    path = self.path_(self.database+'/'+self.bucket_name+'.bdb')
                     for data in data_list:
                         _ = 0
                         for key,value in query.items():
@@ -253,8 +260,9 @@ class Bucket:
                                 _+=1
                         if _ == len(query.items()):
                             data_list.remove(data)
-                    with open(path, 'w') as outfile:
-                        json.dump(data_list, outfile)
+                    outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
+                    outfile1 = self.fernet.encrypt(str(data_list).encode())
+                    outlof.write(outfile1)
         
         else:raise Exception('No database loaded')
         
@@ -272,15 +280,18 @@ class Bucket:
             if(self.bucket_name==''):
                 raise Exception('Bucket name is required')
             else:
-                path=self.path_(self.database+'/'+self.bucket_name+'.json')
+                json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read()
+                data_list = ast.literal_eval((self.fernet.decrypt(json_file).decode()))
+                path = self.path_(self.database+'/'+self.bucket_name+'.bdb')
                 with open(path) as json_file:
                     data_list = json.load(json_file)
                     for data in data_list:
                         if(data['id']==id):
                             data_list.remove(data)
                             break
-                    with open(path, 'w') as outfile:
-                        json.dump(data_list, outfile)
+                    outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
+                    outfile1 = self.fernet.encrypt(str(data_list).encode())
+                    outlof.write(outfile1)
         
         else:raise Exception('No database loaded')
     def fetchbyID(self,id:str=''):

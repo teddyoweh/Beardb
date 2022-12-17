@@ -1,15 +1,14 @@
-import json
-import os
-import time
-from urllib import response
-from flask import Flask, jsonify,request
-from flask_cors import CORS, cross_origin
-app = Flask(__name__)
- 
-@app.route('/', methods=['GET'])
- 
-def index():
-    return jsonify({'message': 'Hello World'})
+import ssl
+import socket
+def check_https(host, port):
+    context = ssl.create_default_context()
+    try:
+        with context.wrap_socket(socket.socket(), server_hostname=host) as s:
+            s.connect((host, port))
+            return True
+    except ssl.SSLError:
+        return False
 
-
-app.run(port=9000,host='0.0.0.0',debug=True)
+# Test the function
+print(check_https('teddyoweh.net', 443))  # True
+print(check_https('www.teddyoweh.net', 8080))  # False

@@ -1,6 +1,7 @@
+![logo](./images/logo.png)
 # Beardb
 Database system implementing AES encrypted versions JSON of data. Easy to access, manage and deploy remotely
-[logo](.images/logo.png)
+
 [Web Documentation](https://beardb.net)
 
  ## Database Architecture

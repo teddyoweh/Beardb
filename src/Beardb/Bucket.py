@@ -1,19 +1,24 @@
 import uuid
 import os
 import json
-import base64
-# from dotenv import load_dotenv
-from cryptography.fernet import Fernet
 import ast
-# load_dotenv(override=False)
+import base64
+import hashlib
+from cryptography.fernet import Fernet
+import cryptography
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.fernet import InvalidToken
+from cryptography.exceptions import InvalidSignature
+import binascii
 
 
-def encode_string(string:str):
+
+
+
+
+
  
-  encoded_bytes = base64.urlsafe_b64encode(string.encode())
- 
-  return encoded_bytes.decode()
-
  
 # output: "aGVsbG8gd29ybGQ"
 
@@ -22,7 +27,7 @@ class Bucket:
         Buckets are the individual database files..
 
     """
-    def __init__(self,project:object,bucket_name:str='',key:str='',):
+    def __init__(self,project:object,bucket_name:str=''):
         """ 
  Buckets are the individual database files..
         Args:
@@ -32,12 +37,9 @@ class Bucket:
         Raises:
             Exception: _description_
         """
-        # self.SECRET_KEY = os.environ.get("SECRET_KEY")
-        self.key = open('key.key','rb').read()#Fernet.generate_key()
-        # self.key= encode_string(key)
-        # Instance the Fernet class with the key
         
-        self.fernet = Fernet(self.key)
+        
+
         self.project = project
         self.project_name=self.project.project
         self.database = self.project.database
@@ -49,13 +51,60 @@ class Bucket:
                 raise Exception('Bucket name is required')
         else:
             self.bucket_name = bucket_name.strip('')
+        tempkey = Fernet.generate_key()
+        if(os.path.isdir(self.path_(self.database+'/keys/'))==False):
+            os.makedirs(self.path_(self.database+'/keys'))
+        if(os.path.isfile(self.path_(self.database+f'/keys/{self.bucket_name}.key'))):
+            if self._check_key(
+                open(
+                    
+                        self.path_(self.database+f'/keys/{self.bucket_name}.key')
+                        ,'rb').read())==True:
+                open(self.path_(self.database+f'/keys/{self.bucket_name}.key'),'wb').write(tempkey)
+                pass
+        else:open(self.path_(self.database+f'/keys/{self.bucket_name}.key'),'wb').write(tempkey)
+       
+            
+
+        self.key = open(self.path_(self.database+f'/keys/{self.bucket_name}.key'),'rb').read()       
+       
+        self.fernet = Fernet(self.key)
         if(os.path.exists(self.path_(self.database+'/'+self.bucket_name+'.bdb'))):
  
             _ = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read() 
+            
             self.bucket = ast.literal_eval((str(self.fernet.decrypt(_).decode())))
+            
         else:
             out__ = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
             out__.write(self.fernet.encrypt(str('[]').encode()))
+
+            
+    def _encode_string(self,password: str) -> bytes:
+        salt = b'salt_' # Use a unique, random salt for each key
+        kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=32,
+            salt=salt,
+            iterations=100000
+        )
+        key = base64.urlsafe_b64encode(kdf.derive(password.encode()))
+        return key
+
+
+
+
+
+
+    def _check_key(self,key: bytes) -> bool:
+        if len(key) != 32:
+            return False
+        try:
+            base64.urlsafe_b64decode(key)
+            return True
+        except (TypeError, binascii.Error):
+            return False
+
     def insert(self,data:dict={}):
         """
         

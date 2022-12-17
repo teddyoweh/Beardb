@@ -17,8 +17,8 @@ class Client:
         self.configdata = {}
         self._config(host,port,email,secret)
         self._headers = {'Content-Type': 'application/json'}
-        self.host =''
-        self.port =''
+        self.host =host
+        self.port =port
     def _ishttps(self,host:str, port:int):
         """
         Checks if the host is using https.
@@ -54,7 +54,7 @@ class Client:
         """
         Merges multiple params with api auth.
         """
-        merged = self.routes
+        merged = self.configdata
         for dictionary in args:
             for key, value in dictionary.items():
                 merged[key] = value
@@ -69,7 +69,7 @@ class Client:
     def headers(self):
         return self.headers
     @staticmethod
-    def grab(self,data:dict,url):
+    def _grab(self,data:dict,url):
         """
         Grabs the data from the API.
         args:
@@ -116,7 +116,12 @@ class Client:
         }
         
         return routes
-    
+    def mydata(self):
+        """
+            Returns a dictionary of data.
+        """
+        body = self._merge({})
+        return self._grab(body=body,url='me')
     def createnewuser(self,fullname:str,email:str, password:str):
         """
         Creates a new user.
@@ -128,7 +133,7 @@ class Client:
         ```
         """
         body = self._merge({'email':email,'password':password,'fullname':fullname})
-        return self.grab(body=body,url='newuser')
+        return self._grab(body=body,url='newuser')
 
 
     
@@ -143,7 +148,7 @@ class Client:
         ```
         """
         body = self._merge({'project':project})
-        return self.grab(body=body,url='newproject')
+        return self._grab(body=body,url='newproject')
     
     def createnewdatabase(self,database:str,project:str):
         """
@@ -162,7 +167,7 @@ class Client:
         ```
         """
         body = self._merge({'database':database,'project':project})
-        return self.grab(body=body,url='newdatabase')
+        return self._grab(body=body,url='newdatabase')
     
     def createnewbucket(self,bucket:str,database:str,project:str):
         """
@@ -174,7 +179,7 @@ class Client:
             project:str
         """
         body = self._merge({'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='newbucket')
+        return self._grab(body=body,url='newbucket')
     
     def insertdata(self,data:dict,bucket:str,database:str,project:str):
         """
@@ -188,7 +193,7 @@ class Client:
         ```
         """
         body = self._merge({'data':data,'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='insertdata')
+        return self._grab(body=body,url='insertdata')
 
     def updatedata(self,query:dict,data:dict,bucket:str,database:str,project:str):
         """
@@ -203,7 +208,7 @@ class Client:
         ```
         """
         body = self._merge({'query':query,'data':data,'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='updatedata')
+        return self._grab(body=body,url='updatedata')
     def updatebyid(self,id:str,data:dict,bucket:str,database:str,project:str):
         """
         Updates a data.
@@ -217,7 +222,7 @@ class Client:
         ```
         """
         body = self._merge({'id':id,'data':data,'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='updatebyid')
+        return self._grab(body=body,url='updatebyid')
     
     def fetchdata(self,query:dict,bucket:str,database:str,project:str):
         """
@@ -231,7 +236,7 @@ class Client:
         ```
         """
         body = self._merge({'query':query,'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='fetchdata')
+        return self._grab(body=body,url='fetchdata')
     def fetchdatabyid(self,id:str,bucket:str,database:str,project:str):
         """
         Fetches data in bucket by id.
@@ -244,7 +249,7 @@ class Client:
         ```
         """
         body = self._merge({'id':id,'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='fetchdatabyid')
+        return self._grab(body=body,url='fetchdatabyid')
     def deletedata(self,data:dict,bucket:str,database:str,project:str):
         """
         Deletes a data.
@@ -258,7 +263,7 @@ class Client:
         """
         
         body = self._merge({'data':data,'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='deletedata')
+        return self._grab(body=body,url='deletedata')
     def deletebyid(self,id:str,bucket:str,database:str,project:str):
         """
         Deletes a data in a bucket by id.
@@ -271,7 +276,7 @@ class Client:
         ```
         """
         body = self._merge({'id':id,'bucket':bucket,'database':database,'project':project})
-        return self.grab(body=body,url='deletebyid')
+        return self._grab(body=body,url='deletebyid')
     
     def getbuckets(self):
         """
@@ -282,7 +287,7 @@ class Client:
 
         """
         body = self._merge({})
-        return self.grab(body=body,url='getbuckets')
+        return self._grab(body=body,url='getbuckets')
     def getdatabases(self):
         """
         Gets all databases.
@@ -290,7 +295,7 @@ class Client:
        
         """
         body = self._merge({})
-        return self.grab(body=body,url='getdatabases')
+        return self._grab(body=body,url='getdatabases')
     def getprojects(self):
         """
         Gets all projects.
@@ -298,7 +303,7 @@ class Client:
 
         """
         body = self._merge({})
-        return self.grab(body=body,url='getprojects')
+        return self._grab(body=body,url='getprojects')
 
     
 

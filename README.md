@@ -1,5 +1,5 @@
 # Beardb
-Database system implementing encrypted versions JSON of data. Easy to access, manage and deploy remotely
+Database system implementing AES encrypted versions JSON of data. Easy to access, manage and deploy remotely
 
  ## Database Architecture
  
@@ -19,6 +19,7 @@ Project
 - [Updata Data in Bucket From Query](#updata-data-in-bucket-from-query)
 - [Update Data From Bucket From ID](#update-data-from-bucket-from-id)
 - [Delete Data From Bucket From Query](#delete-data-from-bucket-from-query)
+- [Working With BeardbAPI](#working-with-beardbapi)
 
 ### Install Libraries
 ```sh
@@ -135,7 +136,26 @@ computers.insert({'model':'lenovo','ram':'8gb','hdd':'1tb','processor':'i5'})
 
 In Order to communicate with the microservice [beardbAPI](https://github.com/teddyoweh/beardb-api) deploys when launched. This client Library consumes APIs effienctly and returns the data and status code.
 
-### Importing Libraries
+## Outline
+- [Import Library](#importing-library)
+- [Initialize Client Object](#initialize-client-object)
+- [Get User Data](#get-user-data)
+- [Create New Project](#create-new-project)
+- [Create New Database](#create-new-database)
+- [Create New Bucket](#create-new-bucket)
+- [Insert Data](#insert-data)
+- [Fetch Data by Query](#fetch-data-by-query)
+- [Fetch Data by ID](#fetch-data-by-id)
+- [Update Data by Query](#update-data-by-query)
+- [Update Data by ID](#update-data-by-id)
+- [Delete Data by Query](#delete-data-by-query)
+- [Delete Data by ID](#delete-data-by-id)
+- [Get Buckets](#get-buckets)
+- [Get Databases](#get-databases)
+- [Get Projects](#get-projects)
+
+
+### Importing Library
 ```py
 from Beardb import Client
 ```
@@ -215,7 +235,7 @@ client.insertdata(
 )   
 ```
 
-### Fetch Data
+### Fetch Data by Query
 ```py
 project='TestProject'
 database='TestDatabase'
@@ -235,7 +255,7 @@ project='TestProject'
 database='TestDatabase'
 bucket='TestBucket'
 id='b419840a-7e04-11ed-84f8-324d38bf6d75'
-client.fetchdata(
+client.fetchBYID(
                          project=project,
                          database=database,
                          bucket=bucket,
@@ -283,7 +303,7 @@ project='TestProject'
 database='TestDatabase'
 bucket='TestBucket'
 query={'name':'teddy',age:1}
-client.deletedatadata(
+client.deletedata(
                          project=project,
                          database=database,
                          bucket=bucket,

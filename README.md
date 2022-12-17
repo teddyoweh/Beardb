@@ -1,14 +1,25 @@
 # Beardb
-Database system implementing encrypted versions JSON of data. Easy to access, manage and deploy remotely
+Database system implementing AES encrypted versions JSON of data. Easy to access, manage and deploy remotely
 
  ## Database Architecture
  
  ```
- -- Project
- | -- Database
- |    -- Bucket
- |      -- Data ({})
+Project
+  -Database
+    -Bucket
+       -Data
  ```
+## Outline
+- [Install Libraries](#install-libraries)
+- [Import Libraries](#import-libraries)
+- [Initialize Project](#initialize-project)
+- [Insert Data into Bucket](#insert-data-into-bucket)
+- [Fetch Data From ID](#fetch-data-from-id)
+- [Fetch Data From Query](#fetch-data-from-query)
+- [Updata Data in Bucket From Query](#updata-data-in-bucket-from-query)
+- [Update Data From Bucket From ID](#update-data-from-bucket-from-id)
+- [Delete Data From Bucket From Query](#delete-data-from-bucket-from-query)
+- [Working With BeardbAPI](#working-with-beardbapi)
 
 ### Install Libraries
 ```sh
@@ -39,111 +50,10 @@ data = {
        'Random Data':'Golf'
 }
 users.insert(data=data})
-
-"""
-Output in database:
-[
- {       
-        'id':'ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6',
-        'name':'Teddy Oweh',
-        'Random Data':'Golf'
- }
-]
-
-"""
-```
-
-#### Updata Data in Bucket From Query
-```py
-query= {
-       'name':'Teddy Oweh',
-       'Random Data':'Golf'
-}
-newdata = {
-       'name':'Teddy Oweh',
-       'Random Data':'Ping Pong',
-       'Added Data':'College'
-       
-}
-
-users.update(query=query,data=newdata})
-
-"""
-Old Output in database:
-[
- {       
-        'id':'ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6',
-        'name':'Teddy Oweh',
-        'Random Data':'Golf'
- }
-]
-New Output in database:
-[
- {       
-        'id':'ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6',
-        'name':'Teddy Oweh',
-        'Random Data':'Ping Pong',
-        'Added Data':'College'
- }
-]
-
-"""
-```
-
-#### Update Data From Bucket From ID
-```py
-       'Random Data':'Golf'
-}
-newdata = {
-       'name':'Teddy Oweh',
-       'Random Data':'Ping Pong',
-       'Added Data':'College'
-       
-}
-
-users.updatebyId(id='ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6',data=newdata})
-
-"""
-Old Output in database:
-[
- {       
-        'id':'ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6',
-        'name':'Teddy Oweh',
-        'Random Data':'Golf'
- }
-]
-New Output in database:
-[
- {       
-        'id':'ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6',
-        'name':'Teddy Oweh',
-        'Random Data':'Ping Pong',
-        'Added Data':'College'
- }
-]
-
-"""
-```
-
-#### Delete Data From Bucket From Query
-
-```py
-query= {
-       'name':'Teddy Oweh',
-       'Random Data':'Golf'
-}
- 
-
-users.delete(query=query})
  
 ```
-#### Delete Data From Bucket From ID
-
-```py
-
-users.deletebyId(id="ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6")
  
-```
+ 
 
 #### Fetch Data From ID
 ```py
@@ -163,6 +73,56 @@ userinfo = users.fetchData(query=query)
 
 ```
 
+#### Updata Data in Bucket From Query
+```py
+query= {
+       'name':'Teddy Oweh',
+       'Random Data':'Golf'
+}
+newdata = {
+       'name':'Teddy Oweh',
+       'Random Data':'Ping Pong',
+       'Added Data':'College'
+       
+}
+
+users.update(query=query,data=newdata})
+
+```
+
+#### Update Data From Bucket From ID
+```py
+       'Random Data':'Golf'
+}
+newdata = {
+       'name':'Teddy Oweh',
+       'Random Data':'Ping Pong',
+       'Added Data':'College'
+       
+}
+
+users.updatebyId(id='ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6',data=newdata})
+```
+
+#### Delete Data From Bucket From Query
+
+```py
+query= {
+       'name':'Teddy Oweh',
+       'Random Data':'Golf'
+}
+ 
+
+users.delete(query=query})
+ 
+```
+#### Delete Data From Bucket From ID
+
+```py
+
+users.deletebyId(id="ae0ca44e-5301-11ed-8d24-a6bd5a94b3a6")
+
+
 ### Test Code
 ```py
 beardb_ = Beardb('projects')
@@ -172,7 +132,213 @@ computers.insert({'model':'lenovo','ram':'8gb','hdd':'1tb','processor':'i5'})
 
 
 ```
+## Working with BeardbAPI
 
+In Order to communicate with the microservice [beardbAPI](https://github.com/teddyoweh/beardb-api) deploys when launched. This client Library consumes APIs effienctly and returns the data and status code.
+
+## Outline
+- [Import Library](#importing-library)
+- [Initialize Client Object](#initialize-client-object)
+- [Get User Data](#get-user-data)
+- [Create New Project](#create-new-project)
+- [Create New Database](#create-new-database)
+- [Create New Bucket](#create-new-bucket)
+- [Insert Data](#insert-data)
+- [Fetch Data by Query](#fetch-data-by-query)
+- [Fetch Data by ID](#fetch-data-by-id)
+- [Update Data by Query](#update-data-by-query)
+- [Update Data by ID](#update-data-by-id)
+- [Delete Data by Query](#delete-data-by-query)
+- [Delete Data by ID](#delete-data-by-id)
+- [Get Buckets](#get-buckets)
+- [Get Databases](#get-databases)
+- [Get Projects](#get-projects)
+
+
+### Importing Library
+```py
+from Beardb import Client
+```
+
+### Initialize Client Object
+Whenever a new user is created, is always returns the secret to be able to access the data.
+
+```py
+host='127.0.0.1'
+port=5555
+email='teddyoweh@gmail.com'
+secret='3687065edf2fdc64bbeb8cdac409ac352fdb65f01423159842d19283309cb70c'
+client = Client(
+                host=host,
+                port=port,
+                email=email,
+                secret=secret
+              )           
+```
+
+### Get User Data
+```py
+cient.mydata()
+```
+
+### Create New User
+```py
+email='teddyoweh@gmail.com'
+password='myrealpassword'
+fullname='Teddy Oweh'
+
+client.createnewuser(
+                     fullname=fullname
+                     email=email
+                     password=password
+)
+```
+
+### Create New Project
+```py
+project='TestProject'
+client.createnewproject(
+                       project=project
+)
+```
+### Create New Database
+```py
+project='TestProject'
+database='TestDatabase'
+client.createnewdatabase(
+                         project=project,
+                         database=database
+)   
+```
+
+### Create New Bucket
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+client.createnewbucket(
+                         project=project,
+                         database=database,
+                         bucket=bucket
+)   
+```
+### Insert Data
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+data={'name':'teddy',age:1}
+client.insertdata(
+                         project=project,
+                         database=database,
+                         bucket=bucket
+)   
+```
+
+### Fetch Data by Query
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+query={'name':'teddy',age:1}
+client.fetchdata(
+                         project=project,
+                         database=database,
+                         bucket=bucket,
+                         query=query
+)   
+```
+
+### Fetch Data by ID
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+id='b419840a-7e04-11ed-84f8-324d38bf6d75'
+client.fetchBYID(
+                         project=project,
+                         database=database,
+                         bucket=bucket,
+                         id=id
+)   
+```
+
+
+### Update Data by Query
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+data={'name':'teddy',age:1}
+query='{name':'teddy'}
+client.updatedata(
+                         project=project,
+                         database=database,
+                         bucket=bucket,
+                         data=data,
+                         query=query
+)   
+```
+
+
+### Update Data by ID
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+data={'name':'teddy',age:1}
+id='b419840a-7e04-11ed-84f8-324d38bf6d75'
+client.updatebyid(
+                         project=project,
+                         database=database,
+                         bucket=bucket,
+                         data=data,
+                         id=id
+)   
+```
+
+### Delete Data by Query
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+query={'name':'teddy',age:1}
+client.deletedata(
+                         project=project,
+                         database=database,
+                         bucket=bucket,
+                         query=query
+)   
+```
+
+### Delete Data by ID
+```py
+project='TestProject'
+database='TestDatabase'
+bucket='TestBucket'
+id='b419840a-7e04-11ed-84f8-324d38bf6d75'
+client.deletebyid(
+                         project=project,
+                         database=database,
+                         bucket=bucket,
+                         id=id
+)   
+```
+
+### Get Buckets
+```py
+client.getbuckets()
+```
+
+### Get Databases
+```py
+client.getdatabases()
+```
+
+### Get Projects
+```py
+cient.getprojects()
+```
 License
 ----
 

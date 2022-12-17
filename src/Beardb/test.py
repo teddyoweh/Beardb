@@ -2,9 +2,20 @@ from Beardb import Beardb
 from Bucket import Bucket
 data = Beardb('testdb')
 data.load_database('windowsapp')
-newjson = Bucket(project=data,bucket_name='people')
-newjson.insert(data={"name":"teddyclear","amountpaid":400,"email":"tedz@gmail.com"})
-# print(newjson.fetchData())
+newjson = Bucket(project=data,bucket_name='people',key='people')
+# newjson.schemas(
+#     {
+#        'type':str,
+#        'id':int,
+#        'name':str,
+#        'email':str,
+#        'list':list
+
+#     }
+# # )
+# newjson.insert(data={"name":"oweh","amountpaid":400,"email":"tedz@gmail.com"})
+newjson.updatebyId(id='48b27e8c-7db5-11ed-9e76-324d38bf6d76',data={"name":"oweh","amountpaid":1555500})
+print(newjson.fetchData())
 # import json
 # name = '{"name":"lucas","amountpaid":500,"email}'
 

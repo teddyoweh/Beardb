@@ -31,7 +31,7 @@ setup(
     ],
   
     include_package_data=True,
-    install_requires=[],
+    install_requires=['cryptography','dotenv','requests'],
     entry_points={
         "console_scripts": [
             "Beardb=reader.__main__:main",

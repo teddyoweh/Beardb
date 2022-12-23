@@ -1,0 +1,2 @@
+[beardb]
+beardb = reader.__main__:main

@@ -1,3 +1,20 @@
+Metadata-Version: 2.1
+Name: beardb
+Version: 0.0.1
+Summary: Database system implementing encrypted versions JSON of data. Easy to access, manage and deploy remotely
+Home-page: https://github.com/teddyoweh/Beardb
+Author: Teddy Oweh
+Author-email: teddyoweh@gmail.com
+Maintainer-email: Teddy Oweh <teddy@teddyoweh.net>
+Project-URL: Homepage, https://github.com/teddyoweh/Beardb
+Project-URL: Bug Tracker, https://github.com/teddyoweh/Beardb/issues
+Project-URL: documentation, https://beardb.net
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
 ![logo](https://www.beardb.net/assets/logo.d0f8a85f.png)
 # bearDB
 Database system implementing AES encrypted versions JSON of data. Easy to access, manage and deploy remotely

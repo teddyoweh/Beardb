@@ -1,10 +1,14 @@
 [project]
-name = "Beardb"
-version = "0.0.3"
+name = "beardb"
+version = "0.0.1"
 authors = [
-  { name="Teddy Oweh", email="teddy@teddyoweh.net" },
+  {name = "Teddy Oweh"},
+  {email = "teddyoweh@gmail.com"}
 ]
-description = "A Local System Based JSON Database system"
+maintainers = [
+  { name="Teddy Oweh", email="teddy@teddyoweh.net" }
+]
+description = "Database system implementing encrypted versions JSON of data. Easy to access, manage and deploy remotely"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
@@ -12,7 +16,15 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+ "cryptography",
+ "requests",
 
+]
 [project.urls]
 "Homepage" = "https://github.com/teddyoweh/Beardb"
 "Bug Tracker" = "https://github.com/teddyoweh/Beardb/issues"
+"documentation" = "https://beardb.net"
+ 
+[project.entry-points."beardb"]
+beardb = "reader.__main__:main"

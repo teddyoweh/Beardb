@@ -14,7 +14,7 @@ README = (HERE / "README.md").read_text()
  
 setup(
     name="beardb",
-    version="0.0.1",
+    version="0.0.2",
     description="Database system implementing encrypted versions JSON of data. Easy to access, manage and deploy remotely",
     long_description=README,
     long_description_content_type="text/markdown",

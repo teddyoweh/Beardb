@@ -276,13 +276,12 @@ class Bucket:
                     
                     for data1 in data_list:
                         if(data1['id']==id):
-                            for key,value in data.items():
-                                
-                                data1[key]=value
-                            break
-                    outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
-                    outfile1 = self.fernet.encrypt(str(data_list).encode())
-                    outlof.write(outfile1)
+                            data1.update(data)
+                            outlof = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'wb')
+                            outfile1 = self.fernet.encrypt(str(data_list).encode())
+                            outlof.write(outfile1)
+                 
+                    
         
         else:raise Exception('No database loaded')
     

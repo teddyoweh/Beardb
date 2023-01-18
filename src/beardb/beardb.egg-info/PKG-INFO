@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: beardb
-Version: 0.0.1
+Version: 0.0.2
 Summary: Database system implementing encrypted versions JSON of data. Easy to access, manage and deploy remotely
 Home-page: https://github.com/teddyoweh/Beardb
 Author: Teddy Oweh

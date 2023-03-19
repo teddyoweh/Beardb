@@ -14,15 +14,15 @@ README = (HERE / "README.md").read_text()
  
 setup(
     name="beardb",
-    version="0.0.2",
+    version="0.0.5",
     description="Database system implementing encrypted versions JSON of data. Easy to access, manage and deploy remotely",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/teddyoweh/Beardb",
     author="Teddy Oweh",
-    author_email="teddy@teddyoweh.net",
-    packages=find_packages('src/beardb/'),
-    package_dir={'': 'src/beardb/'},
+    author_email="teddyoweh@gmail.com",
+    packages=find_packages(),
+    
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",

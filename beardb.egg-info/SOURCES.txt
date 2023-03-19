@@ -1,0 +1,15 @@
+README.md
+setup.cfg
+setup.py
+beardb/Beardb.py
+beardb/Bucket.py
+beardb/Client.py
+beardb/__init__.py
+beardb/eg.py
+beardb/test.py
+beardb.egg-info/PKG-INFO
+beardb.egg-info/SOURCES.txt
+beardb.egg-info/dependency_links.txt
+beardb.egg-info/entry_points.txt
+beardb.egg-info/requires.txt
+beardb.egg-info/top_level.txt

@@ -356,8 +356,10 @@ class Bucket:
             if(self.bucket_name==''):
                 raise Exception('Bucket name is required')
             else:
-                path=self.path_(self.database+'/'+self.bucket_name+'.json')
-                with open(self.path_(self.database+'/'+self.bucket_name+'.json')) as json_file:
+                json_file = open(self.path_(self.database+'/'+self.bucket_name+'.bdb'),'rb').read()
+                data_list = ast.literal_eval((self.fernet.decrypt(json_file).decode()))
+                path = self.path_(self.database+'/'+self.bucket_name+'.bdb')
+                with open(self.path_(self.database+'/'+self.bucket_name+'.bdb')) as json_file:
                     data_list = json.load(json_file)
                     for data in data_list:
                         if(data['id']==id):
